@@ -53,6 +53,24 @@ Auth-required tools answer `401` with a `WWW-Authenticate` challenge pointing at
 metadata above, which is what kicks off the connector's OAuth flow. Discovery and
 `create_account` stay open so agents can bootstrap with zero setup.
 
+### Tokens & rotation (for hand-rolled clients)
+
+Standard connectors (claude.ai, Codex) handle all of this automatically; read on only
+if you are implementing the token flow yourself.
+
+- **`access_token`** — Bearer, valid **1 hour** (`expires_in: 3600`).
+- **`refresh_token`** — **single-use and rotated on every refresh**: each successful
+  `grant_type=refresh_token` call returns a NEW refresh token and retires the one you
+  sent. Always persist the refresh token from the **latest** token response and discard
+  the old one. The 30-day validity window slides forward with every rotation, so an
+  actively-used connection never expires.
+- **Retries are safe:** if a refresh response never reaches you (timeout, dropped
+  connection), retrying with the same token within **60 seconds** returns the same
+  token pair — you won't lose the session to a lost response.
+- **Reuse after that window is treated as token theft** (OAuth 2.1 rotation guidance):
+  the whole token chain is revoked and the user must re-authorize. If your stored
+  refresh token gets `invalid_grant`, don't retry it — restart the authorization flow.
+
 ## Tools
 
 23 tools. Every tool returns human-readable text plus `structuredContent`; errors set `isError` with actionable guidance.
