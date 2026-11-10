@@ -4,7 +4,7 @@
   "description": "Publish beautiful client decks & reports to live URLs and get aggregate view analytics back — the one-call, agent-native DocSend.",
   "version": "0.1.0",
   "repository": {
-    "url": "https://github.com/dashaworks/reportroom-docs",
+    "url": "https://github.com/dariaworks/reportroom-docs",
     "source": "github"
   },
   "websiteUrl": "https://docs.reportroom.io",

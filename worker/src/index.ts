@@ -121,7 +121,7 @@ ${PAGE_CSS}</style></head><body>
 
 ${BODY}
 </div>
-<footer><div class="wrap">© ReportRoom · a She Just Works company · source: <a href="https://github.com/dashaworks/reportroom-docs">github.com/dashaworks/reportroom-docs</a></div></footer>
+<footer><div class="wrap">© ReportRoom · a She Just Works company · source: <a href="https://github.com/dariaworks/reportroom-docs">github.com/dariaworks/reportroom-docs</a></div></footer>
 </body></html>`;
 
 export default {
